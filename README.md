@@ -155,7 +155,7 @@ bring-your-own-vulnerable-driver attacks.
 
 ## 5. Reproducing and observed result
 
-Windows 11 Pro, build 26100.8875, x64, **code integrity enforced and test signing
+Windows 11 Pro 25H2 (build 26200.8875), x64, **code integrity enforced and test signing
 off**, both confirmed with `bcdedit`. Installed from its own catalog-signed
 package:
 
