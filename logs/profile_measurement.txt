@@ -1,0 +1,26 @@
+dadder.sys: return-address offset measured empirically
+======================================================
+
+Run as the unprivileged account (group Users only), --profile mode: the input is
+filled so the qword at byte offset N holds (0x00007FFF00000000 | N). The crash
+dump then shows, in each register and on the stack, the exact input offset that
+reached it.
+
+Dump: evidence/dumps/072526-10562-01.dmp
+Kernel: ntkrnlmp.exe 10.0.26100.8875
+PROCESS_NAME: dadder_profile
+
+KMODE_EXCEPTION_NOT_HANDLED (1e)
+Arg2 (faulting address): 00007fff00000438
+AV.Type: Execute   EXECUTE_ADDRESS: 7fff00000438   exception param0: 8 (instruction fetch)
+
+nt!KiPageFault+0x442
+0x00007fff`00000438            <- rip, from input offset 0x438 = the return address
+  0x00007fff`00000440          <- next stack slot, from input offset 0x440
+  0x00007fff`00000448          <- from 0x448
+  0x00007fff`00000450 ...       and so on, the whole stack above the return address
+
+The faulting address is exactly 0x00007FFF00000438, so the return address of the
+dispatch routine is at input offset 0x438. Every stack slot above it is filled
+with the caller's offset-encoded bytes, which shows the entire region above the
+buffer is attacker controlled with known provenance, not merely corrupted.
