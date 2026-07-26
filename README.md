@@ -139,8 +139,7 @@ account cannot obtain the kernel base from Windows itself: `EnumDeviceDrivers`
 returns real module addresses to an elevated caller and zeroes to a standard user
 at medium integrity, confirmed on the test machine. An attacker therefore needs a
 separate information disclosure to pair with this defect. That does not reduce its
-severity: such disclosures are common, and one exists in `Lycosa.sys`, another
-Razer driver in the same corpus, which returns the kernel base to any user. This
+severity: such disclosures are common in other drivers, which is enough to complete a chain. This
 report does not assume one.
 
 Establishing controlled kernel execution is sufficient to assess and fix the
