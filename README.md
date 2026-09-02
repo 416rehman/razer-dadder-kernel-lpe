@@ -1,5 +1,7 @@
 # dadder.sys, Razer: kernel stack buffer overflow reachable by any local user
 
+Discovered through https://github.com/416rehman/DeepZero
+
 **Vendor:** Razer Inc.
 **Component:** `dadder.sys`, a Razer mouse filter driver, x64
 **Class:** CWE-121 stack-based buffer overflow. CWE-782 exposed IOCTL with insufficient access control.
